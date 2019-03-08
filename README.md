@@ -22,7 +22,7 @@
 * 安装 wkhtmltox，[https://wkhtmltopdf.org/downloads.html](https://wkhtmltopdf.org/downloads.html)。安装后将 bin 目录加入到环境变量。
 * 安装相应依赖：pip install pdfkit
 * 安装 BeautifulSoup：pip install BeautifulSoup4
-* 安装 Requests: pip install requests
+* 安装 Requests：pip install requests
 
 ## 用法
 
