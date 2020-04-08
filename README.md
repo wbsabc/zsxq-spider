@@ -28,20 +28,20 @@
 
 参考以下配置内容
 ```python
-ZSXQ_ACCESS_TOKEN = '7364434F-6288-B1C8-9X23-611LB3575EF0' # 登录后Cookie中的Token
-GROUP_ID = '481818518558'                                  # 知识星球中的小组ID
-PDF_FILE_NAME = '电子书.pdf'                               # 生成PDF文件的名字
-DOWLOAD_PICS = True                                        # 是否下载图片 True | False 下载会导致程序变慢
-DOWLOAD_COMMENTS = True                                    # 是否下载评论
-ONLY_DIGESTS = False                                       # True-只精华 | False-全部
-FROM_DATE_TO_DATE = False                                  # 按时间区间下载
-EARLY_DATE = '2017-05-25T00:00:00.000+0800'                # 最早时间 当FROM_DATE_TO_DATE=True时生效 为空表示不限制 形如'2017-05-25T00:00:00.000+0800'
-LATE_DATE = '2018-05-25T00:00:00.000+0800'                 # 最晚时间 当FROM_DATE_TO_DATE=True时生效 为空表示不限制 形如'2017-05-25T00:00:00.000+0800'
-DELETE_PICS_WHEN_DONE = True                               # 运行完毕后是否删除下载的图片
-DELETE_HTML_WHEN_DONE = True                               # 运行完毕后是否删除生成的HTML
-COUNTS_PER_TIME = 30                                       # 每次请求加载几个主题 最大可设置为30
-DEBUG = False                                              # DEBUG开关
-DEBUG_NUM = 120                                            # DEBUG时 跑多少条数据后停止 需与COUNTS_PER_TIME结合考虑
+ZSXQ_ACCESS_TOKEN = '86D82CA0-301A-3797-8528-D09322903A59_6DF24A4ED3558CD4' # 登录后Cookie中的Token
+GROUP_ID = '452445212848'                                                   # 知识星球中的小组ID
+PDF_FILE_NAME = '电子书.pdf'                                                # 生成PDF文件的名字
+DOWLOAD_PICS = True                                                         # 是否下载图片 True | False 下载会导致程序变慢
+DOWLOAD_COMMENTS = True                                                     # 是否下载评论
+ONLY_DIGESTS = False                                                        # True-只精华 | False-全部
+FROM_DATE_TO_DATE = False                                                   # 按时间区间下载
+EARLY_DATE = '2017-05-25T00:00:00.000+0800'                                 # 最早时间 当FROM_DATE_TO_DATE=True时生效 为空表示不限制 形如'2017-05-25T00:00:00.000+0800'
+LATE_DATE = '2018-05-25T00:00:00.000+0800'                                  # 最晚时间 当FROM_DATE_TO_DATE=True时生效 为空表示不限制 形如'2017-05-25T00:00:00.000+0800'
+DELETE_PICS_WHEN_DONE = True                                                # 运行完毕后是否删除下载的图片
+DELETE_HTML_WHEN_DONE = True                                                # 运行完毕后是否删除生成的HTML
+COUNTS_PER_TIME = 30                                                        # 每次请求加载几个主题 最大可设置为30
+DEBUG = False                                                               # DEBUG开关
+DEBUG_NUM = 120                                                             # DEBUG时 跑多少条数据后停止 需与COUNTS_PER_TIME结合考虑
 ```
 ZSXQ_ACCESS_TOKEN 需要自己在浏览器里登录一次，然后查看Cookie中的值。  
 GROUP_ID 可以从浏览器地址栏中看到，或者截取网络请求。  
