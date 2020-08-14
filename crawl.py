@@ -260,6 +260,8 @@ if __name__ == '__main__':
     url = start_url
     if FROM_DATE_TO_DATE and LATE_DATE.strip():
         url = start_url + '&end_time=' + quote(LATE_DATE.strip())
+    print(url)
+
     make_pdf(get_data(url))
 
     if DOWLOAD_PICS and DELETE_PICS_WHEN_DONE:
