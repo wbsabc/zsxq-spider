@@ -43,6 +43,8 @@ DELETE_HTML_WHEN_DONE = True                      # 运行完毕后是否删除�
 COUNTS_PER_TIME = 30                              # 每次请求加载几个主题 最大可设置为30
 DEBUG = False                                     # DEBUG开关
 DEBUG_NUM = 120                                   # DEBUG时 跑多少条数据后停止 需与COUNTS_PER_TIME结合考虑
+SLEEP_FLAG = True                                 # 请求之间是否SLEEP避免请求过于频繁
+SLEEP_SEC = 2                                     # SLEEP秒数 SLEEP_FLAG=True时生效
 ```
 ZSXQ_ACCESS_TOKEN 需要自己在浏览器里登录一次，然后查看Cookie中的值。  
 USER_AGENT 需要保证和登录时的一致。  
