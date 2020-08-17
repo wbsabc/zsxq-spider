@@ -9,6 +9,8 @@ import urllib.request
 from bs4 import BeautifulSoup
 from urllib.parse import quote
 from urllib.parse import unquote
+import base64
+import time
 
 ZSXQ_ACCESS_TOKEN = '86D82CA0-301A-3797-8528-D09322903A59_6DF24A4ED3558CD4'    # 登录后Cookie中的Token（必须修改）
 USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:79.0) Gecko/20100101 Firefox/79.0'    # 登录时使用的User-Agent（必须修改）
@@ -25,6 +27,8 @@ DELETE_HTML_WHEN_DONE = True                      # 运行完毕后是否删除�
 COUNTS_PER_TIME = 30                              # 每次请求加载几个主题 最大可设置为30
 DEBUG = False                                     # DEBUG开关
 DEBUG_NUM = 120                                   # DEBUG时 跑多少条数据后停止 需与COUNTS_PER_TIME结合考虑
+SLEEP_FLAG = True                                 # 请求之间是否SLEEP避免请求过于频繁
+SLEEP_SEC = 2                                     # SLEEP秒数 SLEEP_FLAG=True时生效
 
 html_template = """
 <!DOCTYPE html>
@@ -89,7 +93,9 @@ def get_data(url):
                     local_url = './images/' + str(num - 1) + '_' + str(images_index) + '.jpg'
                     images_index += 1
                     urllib.request.urlretrieve(url, local_url)
-                    img_tag = soup.new_tag('img', src=local_url)
+                    #img_tag = soup.new_tag('img', src=local_url)
+                    #直接写入路径可能无法正常将图片写入PDF，此处写入转码后的图片数据
+                    img_tag = soup.new_tag('img', src=encode_image(local_url))
                     soup.body.append(img_tag)
                 html_img = str(soup)
                 html = html_img.format(title=title, text=text, author=author, cretime=cretime)
@@ -169,10 +175,17 @@ def get_data(url):
         if len(end_time) == 33:
             end_time = end_time[:24] + '0' + end_time[24:]
         next_url = start_url + '&end_time=' + end_time
+        if SLEEP_FLAG:
+            time.sleep(SLEEP_SEC)
         print(next_url)
         get_data(next_url)
 
     return htmls
+
+def encode_image(image_url):
+    with open(image_url, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read())
+    return 'data:image/png;base64,' + encoded_string.decode('utf-8')
 
 def handle_link(text):
     soup = BeautifulSoup(text, "html.parser")
@@ -229,16 +242,21 @@ def make_pdf(htmls):
         ],
         "outline-depth": 10,
     }
+
+    pdf_error_flag = False
     try:
         pdfkit.from_file(html_files, PDF_FILE_NAME, options=options)
     except Exception as e:
+        pdf_error_flag = True
+        print("电子书生成失败！")
         pass
 
     if DELETE_HTML_WHEN_DONE:
         for file in html_files:
             os.remove(file)
 
-    print("电子书生成成功！")
+    if not pdf_error_flag:
+        print("电子书生成成功！")
 
 if __name__ == '__main__':
     images_path = r'./images'
