@@ -92,7 +92,7 @@ def get_data(url):
                     url = img.get('large').get('url')
                     local_url = './images/' + str(num - 1) + '_' + str(images_index) + '.jpg'
                     images_index += 1
-                    urllib.request.urlretrieve(url, local_url)
+                    download_image(url, local_url)
                     #img_tag = soup.new_tag('img', src=local_url)
                     #直接写入路径可能无法正常将图片写入PDF，此处写入转码后的图片数据
                     img_tag = soup.new_tag('img', src=encode_image(local_url))
@@ -186,6 +186,13 @@ def encode_image(image_url):
     with open(image_url, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read())
     return 'data:image/png;base64,' + encoded_string.decode('utf-8')
+
+def download_image(url, local_url):
+    try:
+        urllib.request.urlretrieve(url, local_url)
+    except urllib.error.ContentTooShortError:
+        print('Network not good. Reloading ' + url)
+        download_image(url, local_url)
 
 def handle_link(text):
     soup = BeautifulSoup(text, "html.parser")
